@@ -151,7 +151,7 @@ trap 'sudo apt-get clean; tput bel; echo; echo Failed' EXIT
 # And as this script only needs the packages once, there is no good reason to
 # introduce a hard dependency on things such as dchroot and debootstrap.
 dep=
-for i in dchroot debootstrap libwww-perl; do
+for i in debootstrap libwww-perl; do
   [ -d /usr/share/doc/"$i" ] || dep="$dep $i"
 done
 [ -n "$dep" ] && sudo apt-get -y install $dep
@@ -337,8 +337,8 @@ sudo sed -ni '/^[[]'"${target%bit}"']$/,${:1;n;/^[[]/b2;b1;:2;p;n;b2};p'       \
 # Download base system. This takes some time
 if [ -z "${mirror}" ]; then
  grep -qs ubuntu.com /usr/share/debootstrap/scripts/"${distname}" &&
-   mirror="http://archive.ubuntu.com/ubuntu" ||
-   mirror="http://ftp.us.debian.org/debian"
+   mirror="https://mirrors.aliyun.com/ubuntu" ||
+   mirror="https://mirrors.aliyun.com/debian"
 fi
 
 sudo ${http_proxy:+http_proxy="${http_proxy}"} debootstrap ${archflag} \
